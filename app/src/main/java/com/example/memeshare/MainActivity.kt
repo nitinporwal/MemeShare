@@ -1,5 +1,6 @@
 package com.example.memeshare
 
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,13 +18,16 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
 class MainActivity : AppCompatActivity() {
+
+    var currentMemeUrl: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         loadMeme()
     }
 
-    fun loadMeme() {
+    private fun loadMeme() {
         var progress = findViewById<ProgressBar>(R.id.progressBar)
         progress.visibility = View.VISIBLE
         var memeIv = findViewById<ImageView>(R.id.memeIv)
@@ -33,8 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         val JsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
                 { response ->
-                    var url = response.getString("url")
-                    Glide.with(this).load(url).listener(object: RequestListener<Drawable> {
+                    currentMemeUrl = response.getString("url")
+                    Glide.with(this).load(currentMemeUrl).listener(object: RequestListener<Drawable> {
                         override fun onLoadFailed(
                             e: GlideException?,
                             model: Any?,
@@ -66,7 +70,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun shareMeme(view: View) {
-
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, "Hey, Checkout this cool meme I got from Reddit $currentMemeUrl")
+        val chooser = Intent.createChooser(intent, "Share this meme using...")
+        startActivity(chooser)
     }
     fun nextMeme(view: View) {
         loadMeme()
