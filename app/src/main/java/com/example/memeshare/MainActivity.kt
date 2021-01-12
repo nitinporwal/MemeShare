@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -32,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         progress.visibility = View.VISIBLE
         var memeIv = findViewById<ImageView>(R.id.memeIv)
 
-        val queue = Volley.newRequestQueue(this)
         val url = "https://meme-api.herokuapp.com/gimme"
 
         val JsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
@@ -63,10 +63,9 @@ class MainActivity : AppCompatActivity() {
 
                 },
                 {
-                    Log.d("error", it.localizedMessage)
+                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
                 })
-
-        queue.add(JsonObjectRequest)
+        VolleySingleton.getInstance(this).addToRequestQueue(JsonObjectRequest)
     }
 
     fun shareMeme(view: View) {
