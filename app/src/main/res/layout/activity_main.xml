@@ -16,12 +16,22 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/memeIv"
+        app:layout_constraintLeft_toLeftOf="@id/memeIv"
+        app:layout_constraintRight_toRightOf="@id/memeIv"
+        app:layout_constraintTop_toTopOf="@id/memeIv"/>
+
     <Button
         android:id="@+id/shareBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/share"
         android:padding="20dp"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline"
@@ -33,6 +43,7 @@
         android:layout_height="wrap_content"
         android:text="@string/next"
         android:padding="20dp"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/guideline"
